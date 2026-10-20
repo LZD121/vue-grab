@@ -226,19 +226,70 @@ onBeforeUnmount(() => {
       @pointerup="endToolbarDrag"
       @pointercancel="endToolbarDrag"
     >
-      <button type="button" class="vg-toolbar-grab" @click="controller.toggle()">
-        {{ state.active ? "◉" : "◎" }}
+      <button
+        type="button"
+        class="vg-toolbar-grab"
+        :class="{ 'is-active': state.active }"
+        title="Toggle grab mode"
+        aria-label="Toggle grab mode"
+        @click="controller.toggle()"
+      >
+        <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+          <path d="M3.2 7.2V4.9c0-.9.7-1.7 1.7-1.7h2.3" />
+          <path d="M12.8 3.2h2.3c.9 0 1.7.7 1.7 1.7v2.3" />
+          <path d="M16.8 12.8v2.3c0 .9-.7 1.7-1.7 1.7h-2.3" />
+          <path d="M7.2 16.8H4.9c-.9 0-1.7-.7-1.7-1.7v-2.3" />
+          <circle cx="10" cy="10" r="2.1" class="vg-toolbar-grab-dot" />
+        </svg>
       </button>
       <template v-if="!state.toolbar.collapsed">
-        <button type="button" @click="setDefaultAction('copy'); controller.copySelection()">
-          Copy
+        <button
+          type="button"
+          class="vg-toolbar-action"
+          title="Copy (C)"
+          aria-label="Copy selected context"
+          @click="setDefaultAction('copy'); controller.copySelection()"
+        >
+          <svg viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+            <rect x="6.2" y="5.4" width="8.3" height="8.3" rx="2" />
+            <path d="M11.8 5.4V4.3c0-1-.8-1.8-1.8-1.8H4.3c-1 0-1.8.8-1.8 1.8v5.7c0 1 .8 1.8 1.8 1.8h1.9" />
+          </svg>
         </button>
-        <button type="button" @click="setDefaultAction('comment'); controller.openPrompt()">
-          Comment
+        <button
+          type="button"
+          class="vg-toolbar-action"
+          title="Comment (Enter)"
+          aria-label="Comment on selected context"
+          @click="setDefaultAction('comment'); controller.openPrompt()"
+        >
+          <svg viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+            <path d="M14.8 9.2c0 2.9-2.6 5.2-5.8 5.2-.8 0-1.6-.1-2.3-.4L3.2 15l1.1-3.1c-.6-.8-.9-1.7-.9-2.7 0-2.9 2.6-5.2 5.8-5.2s5.6 2.3 5.6 5.2Z" />
+          </svg>
         </button>
-        <button type="button" class="vg-toolbar-collapse" @click="toggleCollapsed">–</button>
+        <button
+          type="button"
+          class="vg-toolbar-action vg-toolbar-collapse"
+          title="Collapse toolbar"
+          aria-label="Collapse toolbar"
+          @click="toggleCollapsed"
+        >
+          <svg viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+            <path d="M5.5 7.2 9 10.7l3.5-3.5" />
+          </svg>
+        </button>
       </template>
-      <button v-else type="button" class="vg-toolbar-collapse" @click="toggleCollapsed">+</button>
+      <button
+        v-else
+        type="button"
+        class="vg-toolbar-action vg-toolbar-collapse"
+        title="Expand toolbar"
+        aria-label="Expand toolbar"
+        @click="toggleCollapsed"
+      >
+        <svg viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+          <path d="M5.5 10.8 9 7.3l3.5 3.5" />
+        </svg>
+      </button>
     </div>
   </div>
 </template>

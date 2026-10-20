@@ -214,10 +214,23 @@
 .vg-toolbar {
   display: flex;
   align-items: center;
-  gap: 2px;
-  padding: 5px;
+  gap: 1px;
+  padding: 3px;
+  height: 34px;
+  box-sizing: border-box;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--vg-surface) 92%, transparent);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.16);
+  backdrop-filter: blur(16px);
+  opacity: 0.9;
+  transition: opacity 140ms ease, box-shadow 140ms ease;
   touch-action: none;
   user-select: none;
+}
+
+.vg-toolbar:hover {
+  opacity: 1;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2);
 }
 
 .vg-toolbar.is-top,
@@ -228,20 +241,63 @@
 .vg-toolbar.is-left,
 .vg-toolbar.is-right {
   flex-direction: column;
+  height: auto;
+  width: 34px;
+}
+
+.vg-toolbar button {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border-radius: 999px;
+  text-align: center;
+}
+
+.vg-toolbar svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .vg-toolbar-grab {
-  font-size: 15px;
-  line-height: 1;
   color: var(--vg-accent-strong);
+  background: transparent;
 }
 
+.vg-toolbar-grab svg {
+  width: 18px;
+  height: 18px;
+  stroke-width: 1.55;
+}
+
+.vg-toolbar-grab-dot {
+  fill: currentColor;
+  stroke: none;
+}
+
+.vg-toolbar-grab.is-active {
+  color: white;
+  background: var(--vg-accent);
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--vg-accent) 34%, transparent);
+}
+
+.vg-toolbar-grab.is-active:hover {
+  color: white;
+  background: var(--vg-accent-strong);
+}
+
+.vg-toolbar-action,
 .vg-toolbar-collapse {
   color: var(--vg-muted);
 }
 
-.vg-toolbar button {
-  padding: 6px 8px;
-  white-space: nowrap;
-  text-align: center;
+.vg-toolbar-collapse svg {
+  width: 14px;
+  height: 14px;
 }
