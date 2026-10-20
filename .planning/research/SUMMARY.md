@@ -100,7 +100,7 @@ Five coarse phases, each ending in a runnable slice. Order is driven by the cont
 ### Phase 3: Freeze and interaction integrity
 **Goal:** activating the overlay visibly stops the page — reactive updates, CSS/WAAPI/SMIL animations, rAF loops, and hover/focus styling — and deactivation restores it exactly.
 **Prerequisites:** Phase 1 event lifecycle; adapter skeleton for app discovery.
-**Delivers:** `vue/apps.ts` discovery (`__vue_app__`, open shadow roots, same-origin iframes) + full vnode walk; per-instance scope pause/resume with pre-paused bookkeeping and session id; animation snapshot/pause with overlay exclusion; pseudo-state computed-style pinning with exact inline restore; release-on-blur/`visibilitychange`; `pagehide`/HMR restore; freeze torture fixtures (counter, watcher side effect, Teleport/Suspense/KeepAlive, two apps).
+**Delivers:** Vue app-discovery module (`__vue_app__`, open shadow roots) + full vnode walk; per-instance scope pause/resume with pre-paused bookkeeping and session id; animation snapshot/pause with overlay exclusion; pseudo-state computed-style pinning with exact inline restore; release-on-blur/`visibilitychange`; `pagehide`/HMR restore; freeze torture fixtures (counter, watcher side effect, Teleport/Suspense/KeepAlive, two apps).
 **Findings applied:** freeze probe; watch-outs 2, 5; pitfalls 2, 3, 4, 13, 14; `FEATURES` freeze rows.
 **Research flag:** no public API for "is this scope paused" or KeepAlive caches — needs a real-browser matrix rather than docs.
 
@@ -148,7 +148,7 @@ Five coarse phases, each ending in a runnable slice. Order is driven by the cont
 ## Sources
 
 ### Primary (HIGH confidence)
-- `vuejs/core` v3.5.34 source — `renderer.ts` (dev-gated `__vnode`/`__vueParentComponent`, render effect inside `instance.scope`), `component.ts` (detached `EffectScope`, `__file`/`__name`, `getComponentName`), `reactivity/effectScope.ts` + `effect.ts` (`pause`/`resume`, paused-effect queue), `apiCreateApp.ts` (`__vue_app__`), `compiler-core`/`compiler-sfc` (1-based `loc`, descriptor AST).
+- `vuejs/core` v3.5.34 source — `renderer.ts` (dev-gated `__vnode`/`__vueParentComponent`, render effect inside `instance.scope`), `component.ts` (detached `EffectScope`, `__file`/`__name`, `getComponentName`), the Vue reactivity effect-scope and effect sources (`pause`/`resume`, paused-effect queue), `apiCreateApp.ts` (`__vue_app__`), `compiler-core`/`compiler-sfc` (1-based `loc`, descriptor AST).
 - npm registry queried 2026-10-20 — versions, peer ranges and `engines` for Vue, Vite, `@vitejs/plugin-vue`, TypeScript, Vitest, Playwright, ESLint, Nuxt, pnpm and all runtime/CLI libraries.
 - Vite docs — library mode, `build.rolldownOptions`, plugin hooks, `configureServer`, `transformIndexHtml`, `/__open-in-editor`.
 - `@vitejs/plugin-vue` 6.0.10 dist — `__file` dev behavior, descriptor caching, `api.options`.
