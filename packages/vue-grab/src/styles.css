@@ -80,6 +80,18 @@
   font-size: 12px;
 }
 
+
+.vg-label-retry {
+  appearance: none;
+  border: 0;
+  border-radius: 6px;
+  background: var(--vg-accent);
+  color: white;
+  cursor: pointer;
+  font: inherit;
+  padding: 3px 8px;
+  pointer-events: auto;
+}
 .vg-label-status[data-status="copied"] {
   color: var(--vg-success);
 }

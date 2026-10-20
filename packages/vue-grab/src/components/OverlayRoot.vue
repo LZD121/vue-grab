@@ -156,6 +156,14 @@ onBeforeUnmount(() => {
       <span v-if="statusText" class="vg-label-status" :data-status="state.label.status">
         {{ statusText }}
       </span>
+      <button
+        v-if="state.label.status === 'error'"
+        type="button"
+        class="vg-label-retry"
+        @click="controller.copySelection()"
+      >
+        Retry
+      </button>
     </div>
 
     <div

@@ -161,6 +161,7 @@ export class GrabController {
   private pointerDown = false;
   private lastHoverCheck = 0;
   private statusTimer: number | null = null;
+  private relinkTimer: number | null = null;
   private themeCleanup: (() => void) | null = null;
   private toolbarCallbacks = new Set<(state: ToolbarState) => void>();
   private disposed = false;
@@ -233,6 +234,7 @@ export class GrabController {
     this.abortController = new AbortController();
     this.mountOverlay();
     this.bindEvents();
+    this.relinkTimer = window.setInterval(() => this.relinkLiveElements(), 250);
     this.themeCleanup = watchAppTheme((theme) => {
       this.state.theme = theme;
     });
@@ -323,6 +325,11 @@ export class GrabController {
       if (this.dragStart && isDragBeyondThreshold(this.dragStart, this.dragEnd)) {
         this.state.dragging = true;
         this.state.dragBounds = createDragBounds(this.dragStart, this.dragEnd);
+        const edge = 28;
+        if (event.clientX < edge) window.scrollBy(-12, 0);
+        else if (event.clientX > window.innerWidth - edge) window.scrollBy(12, 0);
+        if (event.clientY < edge) window.scrollBy(0, -12);
+        else if (event.clientY > window.innerHeight - edge) window.scrollBy(0, 12);
       }
       return;
     }
@@ -408,6 +415,15 @@ export class GrabController {
     }
 
     if (this.state.active) {
+      if (event.key === "ContextMenu" || (event.shiftKey && event.key === "F10")) {
+        const element = this.state.hoveredElement;
+        if (element) {
+          event.preventDefault();
+          const rect = element.getBoundingClientRect();
+          this.openMenu(element, rect.left, rect.bottom);
+        }
+        return;
+      }
       if (event.key === "Escape") {
         event.preventDefault();
         if (this.state.hierarchy.visible) this.closeHierarchy();
@@ -669,7 +685,8 @@ export class GrabController {
     this.closeMenu();
   }
 
-  closePrompt(): void {
+  closePrompt(force = false): void {
+    if (!force && this.state.prompt.text.trim() && !window.confirm("Discard this prompt?")) return;
     this.state.prompt.visible = false;
     this.state.prompt.text = "";
   }
@@ -685,7 +702,7 @@ export class GrabController {
       return;
     }
     await this.copySelection(text);
-    this.closePrompt();
+    this.closePrompt(true);
   }
 
   openHierarchy(): void {
@@ -794,12 +811,23 @@ export class GrabController {
     }
   };
 
+  private relinkLiveElements(): void {
+    if (!this.state.active) return;
+    if (this.state.hoveredElement && !this.state.hoveredElement.isConnected) {
+      this.refreshHovered();
+    }
+    const connected = this.state.selectionElements.filter((element) => element.isConnected);
+    if (connected.length !== this.state.selectionElements.length) {
+      this.state.selectionElements = connected;
+    }
+  }
+
   dispose(): void {
     if (this.disposed) return;
     this.disposed = true;
     if (this.statusTimer !== null) window.clearTimeout(this.statusTimer);
     if (this.holdTimer !== null) window.clearTimeout(this.holdTimer);
-    if (isPageFrozen()) unfreezePage();
+    if (this.relinkTimer !== null) window.clearInterval(this.relinkTimer);
     this.themeCleanup?.();
     this.themeCleanup = null;
     this.abortController?.abort();

@@ -13,7 +13,7 @@
   "author": "Vue Grab contributors",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vue-grab/vue-grab"
+    "url": "git+https://github.com/vue-grab/vue-grab.git"
   },
   "type": "module",
   "sideEffects": false,
