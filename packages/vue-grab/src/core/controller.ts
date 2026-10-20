@@ -131,10 +131,12 @@ const getSelectionLabel = (
     return { visible: false, x: 0, y: 0, tagName: "", status: "idle" };
   }
   const rect = element.getBoundingClientRect();
+  const maxX = Math.max(8, window.innerWidth - 358);
+  const maxY = Math.max(8, window.innerHeight - 40);
   return {
     visible: true,
-    x: clamp(rect.left, 8, window.innerWidth - 320),
-    y: clamp(rect.top - 34, 8, window.innerHeight - 64),
+    x: clamp(rect.left, 8, maxX),
+    y: clamp(rect.top - 26, 8, maxY),
     tagName: element.tagName.toLowerCase(),
     componentName: source?.componentName ?? undefined,
     filePath: source?.filePath ? relativeDisplayPath(source.filePath) : undefined,

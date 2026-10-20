@@ -169,7 +169,7 @@ onBeforeUnmount(() => {
     <div
       v-if="state.hierarchy.visible"
       class="vg-hierarchy"
-      :style="{ left: `${state.label.x}px`, top: `${state.label.y + 30}px` }"
+      :style="{ left: `${state.label.x}px`, top: `${state.label.y + 24}px` }"
     >
       <div
         v-for="(item, index) in state.hierarchy.items"
