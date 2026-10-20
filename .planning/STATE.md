@@ -80,5 +80,5 @@ Items acknowledged and deferred at milestone close, most recent first:
 ## Session Continuity
 
 Last session: 2026-10-20
-Stopped at: Milestone v1.0 complete — runtime, Vite plugin, CLI, demo, tests, and packages built.
+Stopped at: Milestone v1.0 complete and archived; phase artifacts cleaned up.
 Resume file: None
