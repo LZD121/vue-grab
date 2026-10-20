@@ -19,7 +19,7 @@ import {
   type VueGrabOptions,
 } from "./transform.js";
 
-const VERSION = "0.1.0";
+const VERSION = "0.1.1";
 
 interface InitOptions {
   cwd: string;

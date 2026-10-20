@@ -1,4 +1,4 @@
-export const VERSION = "0.1.0";
+export const VERSION = "0.1.1";
 
 export const HOST_ATTRIBUTE = "data-vue-grab-host";
 export const IGNORE_ATTRIBUTE = "data-vue-grab-ignore";
