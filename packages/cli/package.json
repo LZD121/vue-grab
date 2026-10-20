@@ -1,0 +1,30 @@
+{
+  "name": "@vue-grab/cli",
+  "version": "0.1.0",
+  "description": "Install and configure Vue Grab in a Vue project",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "vue-grab": "./dist/cli.js"
+  },
+  "files": ["dist", "LICENSE", "README.md"],
+  "exports": {
+    ".": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "vite build",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@clack/prompts": "1.8.1",
+    "commander": "14.0.3",
+    "package-manager-detector": "1.9.0",
+    "picocolors": "1.1.1"
+  },
+  "devDependencies": {
+    "typescript": "6.0.3",
+    "vite": "8.3.4",
+    "vitest": "5.0.5"
+  }
+}

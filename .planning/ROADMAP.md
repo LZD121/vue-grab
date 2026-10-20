@@ -12,11 +12,11 @@ Vue Grab is built as five runnable vertical slices, each proving one link of the
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Foundation and First End-to-End Grab** - A demo Vite app where one shortcut opens the overlay, hover highlights, and click copies DOM-level context.
-- [ ] **Phase 2: Compile-Time Exact Locations** - The Vite plugin and compiler inject exact template `file:line:column`, with a clean `__file` fallback.
-- [ ] **Phase 3: Freeze and Interaction Integrity** - Activation stops Vue reactivity, animations, and pseudo-states; deactivation restores the page exactly.
-- [ ] **Phase 4: Full Selection and Agent-Oriented Output** - Ancestry, multi-select, keyboard hierarchy, prompt mode, editor opening, toolbar, and context menu.
-- [ ] **Phase 5: Install Path, Frameworks, and Release** - `vue-grab` CLI, Nuxt integration, publishable packages, docs, and the verification matrix.
+- [x] **Phase 1: Foundation and First End-to-End Grab** - A demo Vite app where one shortcut opens the overlay, hover highlights, and click copies DOM-level context.
+- [x] **Phase 2: Compile-Time Exact Locations** - The Vite plugin and compiler inject exact template `file:line:column`, with a clean `__file` fallback.
+- [x] **Phase 3: Freeze and Interaction Integrity** - Activation stops Vue reactivity, animations, and pseudo-states; deactivation restores the page exactly.
+- [x] **Phase 4: Full Selection and Agent-Oriented Output** - Ancestry, multi-select, keyboard hierarchy, prompt mode, editor opening, toolbar, and context menu.
+- [x] **Phase 5: Install Path, Frameworks, and Release** - `vue-grab` CLI, Nuxt integration, publishable packages, docs, and the verification matrix.
 
 ## Phase Details
 
@@ -35,11 +35,11 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 5 plans
 
 Plans:
-- [ ] 01-01: Workspace, shared contract, and strict toolchain — pnpm monorepo with `packages/vue-grab`, `packages/cli`, `apps/demo`, Vite lib configs, TypeScript strict, ESLint/Prettier/Vitest, `constants.ts`, public types, state union, and copy-grammar fixtures.
-- [ ] 01-02: Overlay shell and lifecycle — separate `createApp` in an open ShadowRoot with `pointer-events` isolation, CSS injection, deferred body mount, dev-only guard, idempotent `init()`/`dispose()`, `window.__VUE_GRAB__`, and HMR dispose.
-- [ ] 01-03: Activation and hit-testing — capture-phase key handling with toggle/hold/duration, composed topmost-element resolution with ignore/visibility/overlay filtering, and viewport-clamped selection box and label.
-- [ ] 01-04: First copy slice — HTML preview normalization, clipboard write with synchronous `execCommand` fallback, and success/retryable-failure feedback.
-- [ ] 01-05: Demo app and unit harness — demo SFCs exercising nesting and ignore attributes, Vitest setup, and production-no-op build check.
+- [x] 01-01: Workspace, shared contract, and strict toolchain — pnpm monorepo with `packages/vue-grab`, `packages/cli`, `apps/demo`, Vite lib configs, TypeScript strict, ESLint/Prettier/Vitest, `constants.ts`, public types, state union, and copy-grammar fixtures.
+- [x] 01-02: Overlay shell and lifecycle — separate `createApp` in an open ShadowRoot with `pointer-events` isolation, CSS injection, deferred body mount, dev-only guard, idempotent `init()`/`dispose()`, `window.__VUE_GRAB__`, and HMR dispose.
+- [x] 01-03: Activation and hit-testing — capture-phase key handling with toggle/hold/duration, composed topmost-element resolution with ignore/visibility/overlay filtering, and viewport-clamped selection box and label.
+- [x] 01-04: First copy slice — HTML preview normalization, clipboard write with synchronous `execCommand` fallback, and success/retryable-failure feedback.
+- [x] 01-05: Demo app and unit harness — demo SFCs exercising nesting and ignore attributes, Vitest setup, and production-no-op build check.
 
 ### Phase 2: Compile-Time Exact Locations
 **Goal**: Every native element in a dev-rendered SFC carries `data-vue-grab-loc="file:line:column"` from the Vite plugin, so copied context names the exact template position; without the plugin the same flow degrades to `__file` or component name without breaking copy.
@@ -55,10 +55,10 @@ Plans:
 **Plans**: 4 plans
 
 Plans:
-- [ ] 02-01: Compiler transform — `vue-grab/compiler` parses the SFC descriptor AST, injects loc attributes on native elements and call attributes on component tags, escapes values, skips Pug/`src`, and emits a high-resolution source map.
-- [ ] 02-02: Vite plugin entry — `vue-grab/vite` with `apply: 'serve'`, `enforce: 'pre'`, main `.vue` request only, query/id normalization, and HMR-safe idempotency.
-- [ ] 02-03: Runtime location resolver — parse loc attributes, join the injected root for display/editor use, and fall back through `__file` to component name.
-- [ ] 02-04: Golden regression suite — fixtures for offsets, nesting, same-line elements, multiple roots, and degraded mode, plus a source-map assertion.
+- [x] 02-01: Compiler transform — `vue-grab/compiler` parses the SFC descriptor AST, injects loc attributes on native elements and call attributes on component tags, escapes values, skips Pug/`src`, and emits a high-resolution source map.
+- [x] 02-02: Vite plugin entry — `vue-grab/vite` with `apply: 'serve'`, `enforce: 'pre'`, main `.vue` request only, query/id normalization, and HMR-safe idempotency.
+- [x] 02-03: Runtime location resolver — parse loc attributes, join the injected root for display/editor use, and fall back through `__file` to component name.
+- [x] 02-04: Golden regression suite — fixtures for offsets, nesting, same-line elements, multiple roots, and degraded mode, plus a source-map assertion.
 
 ### Phase 3: Freeze and Interaction Integrity
 **Goal**: Activating the overlay visibly stops the page — Vue reactive updates, CSS/WAAPI/SMIL animations, rAF loops, and hover/focus styling — and deactivation restores it exactly, while activation remains safe inside inputs, IME composition, focus traps, and modals.
@@ -74,11 +74,11 @@ Plans:
 **Plans**: 5 plans
 
 Plans:
-- [ ] 03-01: Vue app discovery and scope freeze — `__vue_app__` scan on the main document and open shadow roots; full vnode walk incl. Teleport/Suspense/KeepAlive; per-instance scope pause with pre-paused bookkeeping and overlay exclusion.
-- [ ] 03-02: Animation freeze — targeted CSS/WAAPI/SMIL pause plus rAF interception with overlay exclusion and clean finish on resume.
-- [ ] 03-03: Pseudo-state pinning — snapshot and inline-pin `:hover`/`:focus` computed styles along the inspected chain and restore exactly.
-- [ ] 03-04: Freeze lifecycle safety — single ref-counted session, strict restore order with `try/finally`, partial-failure reporting, and release on Escape/blur/`visibilitychange`/`pagehide`/HMR/`dispose()`.
-- [ ] 03-05: Interaction integrity — editable-target and `isComposing` guards, key ownership and focus restoration, focus-trap/backdrop activation, bounds tracking, HMR selection re-resolution, and full listener/style/observer teardown.
+- [x] 03-01: Vue app discovery and scope freeze — `__vue_app__` scan on the main document and open shadow roots; full vnode walk incl. Teleport/Suspense/KeepAlive; per-instance scope pause with pre-paused bookkeeping and overlay exclusion.
+- [x] 03-02: Animation freeze — targeted CSS/WAAPI/SMIL pause plus rAF interception with overlay exclusion and clean finish on resume.
+- [x] 03-03: Pseudo-state pinning — snapshot and inline-pin `:hover`/`:focus` computed styles along the inspected chain and restore exactly.
+- [x] 03-04: Freeze lifecycle safety — single ref-counted session, strict restore order with `try/finally`, partial-failure reporting, and release on Escape/blur/`visibilitychange`/`pagehide`/HMR/`dispose()`.
+- [x] 03-05: Interaction integrity — editable-target and `isComposing` guards, key ownership and focus restoration, focus-trap/backdrop activation, bounds tracking, HMR selection re-resolution, and full listener/style/observer teardown.
 
 ### Phase 4: Full Selection and Agent-Oriented Output
 **Goal**: Developers get upstream-parity selection and copy: Vue component ancestry, shift and drag multi-select, full keyboard hierarchy navigation, toolbar and context menu, prompt mode, open-in-editor, and theming — producing one agent-ready block per selected element.
@@ -95,11 +95,11 @@ Plans:
 **Plans**: 5 plans
 
 Plans:
-- [ ] 04-01: Ancestry and copy grammar — parent-chain resolution with built-in filtering and dedupe, slot `renderedBy` vs `definedIn` attribution, `maxContextLines` budgeting, and grammar goldens.
-- [ ] 04-02: Multi-select interactions — Shift-click set model, drag-rectangle coverage with dedupe/document ordering, Shift-drag extension, pending preview, and edge auto-scroll.
-- [ ] 04-03: Keyboard, toolbar, and context menu — hierarchy navigation and dropdown, floating toolbar with persistence, and shadow-root context menu with enabled states and dismissal.
-- [ ] 04-04: Prompt, editor, and clipboard — IME-safe prompt mode with discard confirmation, `POST /__vue-grab/open`, editor-URL fallback, and multi-format clipboard writes with retryable failures.
-- [ ] 04-05: Output quality and public API — selector/`v-for` key hints, internal-attribute stripping, light/dark theming and CSP nonce, full method surface, toolbar state events, and selection events.
+- [x] 04-01: Ancestry and copy grammar — parent-chain resolution with built-in filtering and dedupe, slot `renderedBy` vs `definedIn` attribution, `maxContextLines` budgeting, and grammar goldens.
+- [x] 04-02: Multi-select interactions — Shift-click set model, drag-rectangle coverage with dedupe/document ordering, Shift-drag extension, pending preview, and edge auto-scroll.
+- [x] 04-03: Keyboard, toolbar, and context menu — hierarchy navigation and dropdown, floating toolbar with persistence, and shadow-root context menu with enabled states and dismissal.
+- [x] 04-04: Prompt, editor, and clipboard — IME-safe prompt mode with discard confirmation, `POST /__vue-grab/open`, editor-URL fallback, and multi-format clipboard writes with retryable failures.
+- [x] 04-05: Output quality and public API — selector/`v-for` key hints, internal-attribute stripping, light/dark theming and CSP nonce, full method surface, toolbar state events, and selection events.
 
 ### Phase 5: Install Path, Frameworks, and Release
 **Goal**: `pnpm dlx @vue-grab/cli init` wires a cold Vite or Nuxt project end-to-end, both packages publish with correct exports and types, and the documented verification matrix proves the copy flow, freeze, SSR hydration, CSP, and production no-op.
@@ -115,11 +115,11 @@ Plans:
 **Plans**: 5 plans
 
 Plans:
-- [ ] 05-01: Nuxt subpath — `vue-grab/nuxt` with both dev compilers, client-only plugin template, dev-only early return, Nitro open handler, and typed `vue-grab/vite`/`vue-grab/compiler`/`vue-grab/constants` exports that keep Node code out of the browser bundle.
-- [ ] 05-02: CLI detection and wiring — `init` detection (Vue ≥3.5, Vite/Nuxt, plugin-vue, package manager, workspace), dev-dependency install, entry import, and magicast plugin insertion for Vite and Nuxt with idempotency and diff preview.
-- [ ] 05-03: CLI configure and ergonomics — managed options block for key/mode/hold/input/context lines, `--yes`, `--force`, `--cwd`, `--skip-install`, `--dry-run`, non-interactive CI behavior, actionable errors, and no telemetry or version ping.
-- [ ] 05-04: Coverage and documentation — Vitest suite across normalization, grammar, ancestry, scope discovery, freeze, and compiler transforms; Playwright specs for the full interaction matrix; README, manual install, Vite/Nuxt, CLI, API, and upstream MIT attribution.
-- [ ] 05-05: Packaging and release gates — exports/types/bin/peer/engines, `publint` and `attw --profile esm-only`, production-leak and CSP fixtures, supported-version CI matrix, performance checks, and changesets.
+- [x] 05-01: Nuxt subpath — `vue-grab/nuxt` with both dev compilers, client-only plugin template, dev-only early return, Nitro open handler, and typed `vue-grab/vite`/`vue-grab/compiler`/`vue-grab/constants` exports that keep Node code out of the browser bundle.
+- [x] 05-02: CLI detection and wiring — `init` detection (Vue ≥3.5, Vite/Nuxt, plugin-vue, package manager, workspace), dev-dependency install, entry import, and magicast plugin insertion for Vite and Nuxt with idempotency and diff preview.
+- [x] 05-03: CLI configure and ergonomics — managed options block for key/mode/hold/input/context lines, `--yes`, `--force`, `--cwd`, `--skip-install`, `--dry-run`, non-interactive CI behavior, actionable errors, and no telemetry or version ping.
+- [x] 05-04: Coverage and documentation — Vitest suite across normalization, grammar, ancestry, scope discovery, freeze, and compiler transforms; Playwright specs for the full interaction matrix; README, manual install, Vite/Nuxt, CLI, API, and upstream MIT attribution.
+- [x] 05-05: Packaging and release gates — exports/types/bin/peer/engines, `publint` and `attw --profile esm-only`, production-leak and CSP fixtures, supported-version CI matrix, performance checks, and changesets.
 
 ## Progress
 
@@ -128,8 +128,8 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation and First End-to-End Grab | 0/5 | Not started | - |
-| 2. Compile-Time Exact Locations | 0/4 | Not started | - |
-| 3. Freeze and Interaction Integrity | 0/5 | Not started | - |
-| 4. Full Selection and Agent-Oriented Output | 0/5 | Not started | - |
-| 5. Install Path, Frameworks, and Release | 0/5 | Not started | - |
+| 1. Foundation and First End-to-End Grab | 1/1 | Complete | 2026-10-20 |
+| 2. Compile-Time Exact Locations | 1/1 | Complete | 2026-10-20 |
+| 3. Freeze and Interaction Integrity | 1/1 | Complete | 2026-10-20 |
+| 4. Full Selection and Agent-Oriented Output | 1/1 | Complete | 2026-10-20 |
+| 5. Install Path, Frameworks, and Release | 1/1 | Complete | 2026-10-20 |

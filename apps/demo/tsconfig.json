@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "types": ["vite/client"],
+    "paths": {
+      "vue-grab": ["../../packages/vue-grab/src/index.ts"],
+      "vue-grab/vite": ["../../packages/vue-grab/src/vite.ts"],
+      "vue-grab/compiler": ["../../packages/vue-grab/src/compiler.ts"]
+    }
+  },
+  "include": ["src", "tests", "vite.config.ts"]
+}

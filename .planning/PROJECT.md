@@ -14,21 +14,21 @@ One keyboard shortcut copies the exact Vue component and source location behind 
 
 ### Validated
 
-(None yet — ship to validate)
+- ✓ Developer can activate the overlay with a configurable key (toggle or hold) without breaking the host app's keyboard handling — v1.0
+- ✓ Developer can hover any rendered element and see its tag, component name, and source file highlighted — v1.0
+- ✓ Developer can click, shift-click, or drag-select one or many elements and copy agent-ready reference context — v1.0
+- ✓ Copied context includes Vue component ancestry and exact `file:line:column` locations — v1.0
+- ✓ Overlay freezes Vue reactivity, CSS/WAAPI animations, and pseudo-states while inspecting, then restores cleanly — v1.0
+- ✓ Developer can comment on a selection and copy a prompt with the reference context — v1.0
+- ✓ Developer can open the selected source file in their editor from the overlay — v1.0
+- ✓ Overlay is fully keyboard-navigable (hierarchy, toolbar, context menu, prompt mode) — v1.0
+- ✓ Vite plugin injects development-only source locations into Vue SFC templates — v1.0
+- ✓ CLI can detect a Vue 3 Vite/Nuxt project, install the package, wire the runtime, and persist activation options — v1.0
+- ✓ A demo Vue app and automated tests prove the copy flow end-to-end — v1.0
 
 ### Active
 
-- [ ] Developer can activate the overlay with a configurable key (toggle or hold) without breaking the host app's keyboard handling
-- [ ] Developer can hover any rendered element and see its tag, component name, and source file highlighted
-- [ ] Developer can click, shift-click, or drag-select one or many elements and copy agent-ready reference context
-- [ ] Copied context includes Vue component ancestry and exact `file:line:column` locations
-- [ ] Overlay freezes Vue reactivity, CSS/WAAPI animations, and pseudo-states while inspecting, then restores cleanly
-- [ ] Developer can comment on a selection and copy a prompt with the reference context
-- [ ] Developer can open the selected source file in their editor from the overlay
-- [ ] Overlay is fully keyboard-navigable (hierarchy, toolbar, context menu, prompt mode)
-- [ ] Vite plugin injects development-only source locations into Vue SFC templates
-- [ ] CLI can detect a Vue 3 Vite/Nuxt project, install the package, wire the runtime, and persist activation options
-- [ ] A demo Vue app and automated tests prove the copy flow end-to-end
+(None — v1.0 milestone complete)
 
 ### Out of Scope
 
@@ -68,12 +68,12 @@ One keyboard shortcut copies the exact Vue component and source location behind 
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Target Vue 3.5+ only | `EffectScope.pause()` gives a safe, framework-level freeze; older Vue needs fragile monkey-patching | — Pending |
-| Ship runtime + Vite plugin + CLI | A library alone still leaves manual wiring; the CLI is the upstream install experience | — Pending |
-| Full core UX parity | The value is the complete inspect → select → copy loop, not a single hover-copy helper | — Pending |
-| Compile-time locations with runtime fallback | `__file` alone lacks line/column; template injection matches React Grab's precision without source-map fetches | — Pending |
-| pnpm monorepo | Keeps browser runtime, Node CLI, compiler plugin, demo, and tests independently buildable | — Pending |
-| Vertical MVP phases | Each phase must produce a runnable end-to-end slice, not a layer that cannot be exercised | — Pending |
+| Target Vue 3.5+ only | `EffectScope.pause()` gives a safe, framework-level freeze; older Vue needs fragile monkey-patching | ✓ Good |
+| Ship runtime + Vite plugin + CLI | A library alone still leaves manual wiring; the CLI is the upstream install experience | ✓ Good |
+| Full core UX parity | The value is the complete inspect → select → copy loop, not a single hover-copy helper | ✓ Good |
+| Compile-time locations with runtime fallback | `__file` alone lacks line/column; template injection matches React Grab's precision without source-map fetches | ✓ Good |
+| pnpm monorepo | Keeps browser runtime, Node CLI, compiler plugin, demo, and tests independently buildable | ✓ Good |
+| Vertical MVP phases | Each phase must produce a runnable end-to-end slice, not a layer that cannot be exercised | ✓ Good |
 
 ## Evolution
 
@@ -93,4 +93,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-10-20 after initialization*
+*Last updated: 2026-10-20 after v1.0 milestone*
