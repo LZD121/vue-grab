@@ -1,9 +1,9 @@
-# @vue-grab-dev/cli
+# @ymd121/cli
 
 Install and configure Vue Grab in a Vite or Nuxt project.
 
 ```bash
-pnpm dlx @vue-grab-dev/cli init
+pnpm dlx @ymd121/cli init
 ```
 
 ## Commands

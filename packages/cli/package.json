@@ -1,5 +1,5 @@
 {
-  "name": "@vue-grab-dev/cli",
+  "name": "@ymd121/cli",
   "version": "0.1.1",
   "description": "Install and configure Vue Grab in a Vue project",
   "keywords": [

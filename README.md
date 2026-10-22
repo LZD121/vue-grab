@@ -14,7 +14,7 @@ It is a port of [React Grab](https://github.com/aidenybai/react-grab) that repla
 ## Quick Start
 
 ```bash
-pnpm dlx @vue-grab-dev/cli init
+pnpm dlx @ymd121/cli init
 ```
 
 Or install manually:
@@ -44,11 +44,11 @@ Press `Meta+C` (macOS) or `Ctrl+C` (elsewhere) to activate. Click an element to 
 
 ## Packages
 
-| Package             | Purpose                                                              |
-| ------------------- | -------------------------------------------------------------------- |
-| `vue-grab`          | Browser runtime, Vue adapter, Vite/compiler subpaths, and public API |
-| `@vue-grab-dev/cli` | `vue-grab init` and `vue-grab configure` for Vite and Nuxt           |
-| `apps/demo`         | Vite playground used by the automated tests                          |
+| Package       | Purpose                                                              |
+| ------------- | -------------------------------------------------------------------- |
+| `vue-grab`    | Browser runtime, Vue adapter, Vite/compiler subpaths, and public API |
+| `@ymd121/cli` | `vue-grab init` and `vue-grab configure` for Vite and Nuxt           |
+| `apps/demo`   | Vite playground used by the automated tests                          |
 
 ## Development
 
@@ -67,7 +67,7 @@ Maintainers only. Publishing needs npm auth for both `vue-grab` and the `@vue-gr
 ```bash
 npm login                  # or `NPM_TOKEN=... pnpm publish ...`
 pnpm test && pnpm typecheck
-pnpm release               # builds, then publishes vue-grab, then @vue-grab-dev/cli
+pnpm release               # builds, then publishes vue-grab, then @ymd121/cli
 ```
 
 Before releasing, bump `version` in both `packages/*/package.json` and `VERSION` in `packages/vue-grab/src/constants.ts`; keep them identical.
