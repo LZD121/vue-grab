@@ -20,7 +20,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm typecheck
       - run: pnpm --filter vue-grab test
-      - run: pnpm --filter @vue-grab/cli test
+      - run: pnpm --filter @vue-grab-dev/cli test
       - run: pnpm build
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm exec playwright test

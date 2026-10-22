@@ -1,5 +1,5 @@
 {
-  "name": "@vue-grab/cli",
+  "name": "@vue-grab-dev/cli",
   "version": "0.1.1",
   "description": "Install and configure Vue Grab in a Vue project",
   "keywords": [
@@ -27,7 +27,7 @@
   },
   "type": "module",
   "bin": {
-    "vue-grab": "./dist/cli.js"
+    "vue-grab": "dist/cli.js"
   },
   "files": [
     "dist",

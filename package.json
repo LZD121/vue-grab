@@ -13,7 +13,7 @@
     "typecheck": "pnpm -r --if-present typecheck",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "release": "pnpm build && pnpm --filter vue-grab publish --access public && pnpm --filter @vue-grab/cli publish --access public"
+    "release": "pnpm build && pnpm --filter vue-grab publish --access public && pnpm --filter @vue-grab-dev/cli publish --access public"
   },
   "devDependencies": {
     "@playwright/test": "1.64.1",
