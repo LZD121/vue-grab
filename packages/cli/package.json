@@ -2,17 +2,44 @@
   "name": "@vue-grab/cli",
   "version": "0.1.1",
   "description": "Install and configure Vue Grab in a Vue project",
+  "keywords": [
+    "vue",
+    "vue-grab",
+    "cli",
+    "devtools",
+    "vite",
+    "nuxt"
+  ],
   "license": "MIT",
+  "author": "Vue Grab contributors",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vue-grab/vue-grab.git",
+    "directory": "packages/cli"
+  },
+  "homepage": "https://github.com/vue-grab/vue-grab#readme",
+  "bugs": "https://github.com/vue-grab/vue-grab/issues",
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "type": "module",
   "bin": {
     "vue-grab": "./dist/cli.js"
   },
-  "files": ["dist", "LICENSE", "README.md"],
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md"
+  ],
   "exports": {
     ".": "./dist/cli.js"
   },
   "scripts": {
     "build": "vite build",
+    "prepack": "pnpm build",
     "typecheck": "tsc --noEmit",
     "test": "vitest run"
   },

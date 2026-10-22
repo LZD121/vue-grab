@@ -12,7 +12,13 @@ export default defineConfig({
       fileName: "cli",
     },
     rollupOptions: {
-      external: [/^node:/, "commander", "@clack/prompts", "picocolors", "package-manager-detector"],
+      external: [
+        /^node:/,
+        /^commander(\/.*)?$/,
+        /^@clack\/prompts(\/.*)?$/,
+        /^picocolors(\/.*)?$/,
+        /^package-manager-detector(\/.*)?$/,
+      ],
       output: {
         banner: "#!/usr/bin/env node",
       },

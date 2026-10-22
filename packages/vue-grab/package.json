@@ -13,10 +13,17 @@
   "author": "Vue Grab contributors",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vue-grab/vue-grab.git"
+    "url": "git+https://github.com/vue-grab/vue-grab.git",
+    "directory": "packages/vue-grab"
   },
   "type": "module",
   "sideEffects": false,
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -46,6 +53,7 @@
   ],
   "scripts": {
     "build": "vite build && tsc -p tsconfig.build.json",
+    "prepack": "pnpm build",
     "dev": "vite build --watch",
     "test": "vitest run",
     "test:watch": "vitest",

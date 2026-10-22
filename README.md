@@ -44,11 +44,11 @@ Press `Meta+C` (macOS) or `Ctrl+C` (elsewhere) to activate. Click an element to 
 
 ## Packages
 
-| Package | Purpose |
-|---------|---------|
-| `vue-grab` | Browser runtime, Vue adapter, Vite/compiler subpaths, and public API |
-| `@vue-grab/cli` | `vue-grab init` and `vue-grab configure` for Vite and Nuxt |
-| `apps/demo` | Vite playground used by the automated tests |
+| Package         | Purpose                                                              |
+| --------------- | -------------------------------------------------------------------- |
+| `vue-grab`      | Browser runtime, Vue adapter, Vite/compiler subpaths, and public API |
+| `@vue-grab/cli` | `vue-grab init` and `vue-grab configure` for Vite and Nuxt           |
+| `apps/demo`     | Vite playground used by the automated tests                          |
 
 ## Development
 
@@ -59,6 +59,18 @@ pnpm test
 pnpm typecheck
 pnpm build
 ```
+
+## Releasing
+
+Maintainers only. Publishing needs npm auth for both `vue-grab` and the `@vue-grab` scope.
+
+```bash
+npm login                  # or `NPM_TOKEN=... pnpm publish ...`
+pnpm test && pnpm typecheck
+pnpm release               # builds, then publishes vue-grab, then @vue-grab/cli
+```
+
+Before releasing, bump `version` in both `packages/*/package.json` and `VERSION` in `packages/vue-grab/src/constants.ts`; keep them identical.
 
 ## License
 
