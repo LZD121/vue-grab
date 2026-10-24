@@ -46,6 +46,16 @@ const writeSynchronously = (content: string, metadata: ClipboardMetadata): boole
   }
 };
 
+export const writeImageClipboard = async (blob: Blob): Promise<boolean> => {
+  if (typeof ClipboardItem === "undefined" || !navigator.clipboard?.write) return false;
+  try {
+    await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
+    return true;
+  } catch {
+    return false;
+  }
+};
+
 export const writeClipboard = async (
   content: string,
   metadata: ClipboardMetadata,

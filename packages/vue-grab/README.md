@@ -22,6 +22,10 @@ export default defineConfig({
 });
 ```
 
+## Toolbar
+
+The floating toolbar toggles grab mode and copies context. Its camera button rasterizes the hovered element (or the current viewport when nothing is hovered) and writes the PNG to the clipboard.
+
 ## API
 
 ```ts

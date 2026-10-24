@@ -65,7 +65,8 @@
   "dependencies": {
     "@vue/compiler-dom": "3.5.44",
     "@vue/compiler-sfc": "^3.5.44",
-    "magic-string": "^1.4.3"
+    "magic-string": "^1.4.3",
+    "modern-screenshot": "4.7.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "6.0.10",

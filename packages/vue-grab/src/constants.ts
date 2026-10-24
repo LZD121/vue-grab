@@ -26,6 +26,8 @@ export const MAX_PREVIEW_TEXT_LENGTH = 100;
 export const MAX_PREVIEW_ATTR_LENGTH = 120;
 export const MAX_PREVIEW_ATTR_COUNT = 8;
 export const MAX_SELECTOR_DEPTH = 12;
+export const MAX_SCREENSHOT_DIMENSION = 4096;
+export const MAX_SCREENSHOT_SCALE = 2;
 
 export const MIME_TYPE = "application/x-vue-grab";
 

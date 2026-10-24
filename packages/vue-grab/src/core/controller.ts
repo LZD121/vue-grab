@@ -32,7 +32,7 @@ import {
   isEditableTarget,
   parseActivationKey,
 } from "./activation.js";
-import { writeClipboard } from "./clipboard.js";
+import { writeClipboard, writeImageClipboard } from "./clipboard.js";
 import {
   buildCopyText,
   buildPayload,
@@ -50,6 +50,7 @@ import {
   isGrabbable,
   navigateElement,
 } from "./selection.js";
+import { captureScreenshotBlob } from "./screenshot.js";
 import { detectAppTheme, watchAppTheme, type AppTheme } from "./theme.js";
 import { relativeDisplayPath, resolveSource } from "./source.js";
 
@@ -63,6 +64,7 @@ export interface ControllerState {
   dragBounds: OverlayBounds | null;
   dragging: boolean;
   copying: boolean;
+  capturing: boolean;
   prompt: PromptState & { text: string };
   menu: MenuState;
   hierarchy: { visible: boolean; items: HierarchyItem[]; activeIndex: number };
@@ -192,6 +194,7 @@ export class GrabController {
       dragBounds: null,
       dragging: false,
       copying: false,
+      capturing: false,
       prompt: { visible: false, x: 0, y: 0, text: "" },
       menu: { visible: false, x: 0, y: 0, hasSource: false },
       hierarchy: { visible: false, items: [], activeIndex: 0 },
@@ -647,6 +650,38 @@ export class GrabController {
       return false;
     } finally {
       this.state.copying = false;
+    }
+  }
+
+  async captureScreenshot(): Promise<boolean> {
+    if (this.state.capturing) return false;
+    this.state.capturing = true;
+    this.state.errorMessage = "";
+    this.state.statusMessage = "Capturing…";
+    this.state.label.status = "copying";
+    this.state.label.statusText = "Capturing…";
+
+    try {
+      const blob = await captureScreenshotBlob(
+        this.state.active ? this.getTargetElements() : [],
+      );
+      if (!(await writeImageClipboard(blob))) {
+        throw new Error("Image clipboard write was blocked");
+      }
+      this.state.statusMessage = "Screenshot copied";
+      this.state.label.status = "copied";
+      this.state.label.statusText = "Screenshot copied";
+      this.scheduleStatusClear();
+      return true;
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Screenshot failed";
+      this.state.errorMessage = message;
+      this.state.statusMessage = message;
+      this.state.label.status = "error";
+      this.state.label.statusText = message;
+      return false;
+    } finally {
+      this.state.capturing = false;
     }
   }
 

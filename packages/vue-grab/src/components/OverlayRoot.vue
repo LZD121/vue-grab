@@ -216,6 +216,15 @@ onBeforeUnmount(() => {
     </div>
 
     <div
+      v-if="state.statusMessage && !state.label.visible"
+      class="vg-toast"
+      role="status"
+      :data-status="state.label.status"
+    >
+      {{ state.statusMessage }}
+    </div>
+
+    <div
       v-if="state.toolbar.enabled"
       ref="toolbarRef"
       class="vg-toolbar"
@@ -264,6 +273,19 @@ onBeforeUnmount(() => {
         >
           <svg viewBox="0 0 18 18" aria-hidden="true" focusable="false">
             <path d="M14.8 9.2c0 2.9-2.6 5.2-5.8 5.2-.8 0-1.6-.1-2.3-.4L3.2 15l1.1-3.1c-.6-.8-.9-1.7-.9-2.7 0-2.9 2.6-5.2 5.8-5.2s5.6 2.3 5.6 5.2Z" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          class="vg-toolbar-action"
+          title="Copy screenshot"
+          aria-label="Copy screenshot to clipboard"
+          :disabled="state.capturing"
+          @click="controller.captureScreenshot()"
+        >
+          <svg viewBox="0 0 18 18" aria-hidden="true" focusable="false">
+            <path d="M3.4 6.6h1.9l1-1.7h5.4l1 1.7h1.9c.6 0 1.1.5 1.1 1.1v5.9c0 .6-.5 1.1-1.1 1.1H3.4c-.6 0-1.1-.5-1.1-1.1V7.7c0-.6.5-1.1 1.1-1.1Z" />
+            <circle cx="9" cy="10.4" r="2.5" />
           </svg>
         </button>
         <button

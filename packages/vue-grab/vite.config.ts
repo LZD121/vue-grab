@@ -18,7 +18,7 @@ export default defineConfig({
       formats: ["es"],
     },
     rollupOptions: {
-      external: ["vue", "@vue/compiler-sfc", "magic-string", /^node:/],
+      external: ["vue", "@vue/compiler-sfc", "magic-string", "modern-screenshot", /^node:/],
       output: {
         entryFileNames: "[name].js",
         chunkFileNames: "chunks/[name]-[hash].js",

@@ -40,7 +40,7 @@ export default defineConfig({
 });
 ```
 
-Press `Meta+C` (macOS) or `Ctrl+C` (elsewhere) to activate. Click an element to copy its context. `Shift` reveals the hierarchy, `Shift`-click selects multiple elements, and dragging a rectangle selects a region.
+Press `Meta+C` (macOS) or `Ctrl+C` (elsewhere) to activate. Click an element to copy its context. `Shift` reveals the hierarchy, `Shift`-click selects multiple elements, and dragging a rectangle selects a region. The floating toolbar's camera button copies a PNG screenshot of the hovered element — or the visible viewport when nothing is hovered — to the clipboard.
 
 ## Packages
 
