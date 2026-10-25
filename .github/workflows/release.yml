@@ -1,0 +1,67 @@
+name: release
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run (pack and verify, publish nothing)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  id-token: write # npm trusted publishing (OIDC) — no NPM_TOKEN secret
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.24.0
+      # No registry-url: trusted publishing authenticates over OIDC, and an
+      # .npmrc _authToken placeholder would make npm look for a secret.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - name: Check npm trusted publishing support
+        run: npm --version
+      - name: Publish unpublished workspace packages
+        env:
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          set -euo pipefail
+          for dir in packages/vue-grab packages/cli; do
+            name=$(node -p "require('./$dir/package.json').name")
+            version=$(node -p "require('./$dir/package.json').version")
+            if npm view "$name@$version" version >/dev/null 2>&1; then
+              echo "::notice::$name@$version is already on the registry — skipping"
+              continue
+            fi
+            echo "::group::publish $name@$version"
+            if [ "${DRY_RUN:-false}" = "true" ]; then
+              pnpm --filter "$name" publish --access public --no-git-checks --dry-run
+            else
+              pnpm --filter "$name" publish --access public --no-git-checks --provenance
+            fi
+            echo "::endgroup::"
+          done
+      - name: Verify from the registry
+        if: ${{ inputs.dry_run == false }}
+        run: |
+          for dir in packages/vue-grab packages/cli; do
+            name=$(node -p "require('./$dir/package.json').name")
+            version=$(node -p "require('./$dir/package.json').version")
+            live=$(curl -s "https://registry.npmjs.org/${name/\//%2F}" \
+              | node -e "let s='';process.stdin.on('data',d=>s+=d).on('end',()=>console.log(JSON.parse(s)['dist-tags'].latest))")
+            echo "$name: latest=$live (expected $version)"
+            [ "$live" = "$version" ] || { echo "::error::$name latest is $live"; exit 1; }
+          done
